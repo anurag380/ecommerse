@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}contact{% endblock title %}
+{% block content %}
+
+{% if output == 1 %}
+<div class="alert alert-dark" role="alert" style="justify-content:center; font-family:'Bree Serif', serif;">
+    Hi {{name}} , Our representative will conact you soon .Thank you,
+<div>
+{% endif %}
+
+        <div class="d-flex" style="justify-content:center; font-family:'Bree Serif', serif; margin-top:5%;">
+            <div class="" style="font-size:30px; margin-left:20%; ">
+                <h2 style="font-size:40px ;color:blue;">CONTACT US</h2>
+                
+                <p><img src="https://e7.pngegg.com/pngimages/432/941/png-clipart-telephone-call-dialer-android-android-text-telephone-call-thumbnail.png" width=5%%>
+                    &nbsp PHONE NO :<a href="#"> &nbsp 9995800380</a></P>
+                <p><img src="https://www.icone-png.com/png/34/34486.png" width=5%> &nbsp E-MAIL:<a href="#">&nbsp
+                        contact@flipkart</a></P>
+            </div>
+            <div style="margin-right:26%; margin-top:1%; color:indigo;">
+                <h2>What issue are you facing?</h2>
+                <form action="" method="POST" style="font-size:20px;">
+                    {% csrf_token %}
+                    <div class='mb-3 p-1' style="margin-right:66%;">
+                        <input type="text" placeholder="Name" name='name' required>
+                    </div>
+                    <div class='mb-3 p-1' style="margin-right:66%;">
+                        <input type="email" placeholder="E-Mail" name='email' required>
+                    </div>
+                    <div class='mb-3 p-1' style="margin-right:66%;">
+                        <input type="number" placeholder="Phone No." name='phno' required>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-outline-success">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+{% endblock content %}

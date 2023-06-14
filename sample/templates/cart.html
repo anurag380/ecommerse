@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}cart{% endblock title %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <div class="container" style="font-family: 'Bree Serif'">
+    <div class="row mt-4" style='color:red; font-size:120%'>
+      <div class="col-sm">
+        Product
+      </div>
+      <div class="col-sm">
+        Image
+      </div>
+      <div class="col-sm">
+        Quantity
+      </div>
+      <div class="col-sm">
+        Remove
+      </div>
+      <div class="col-sm">
+        Unit Price
+      </div>
+      <div class="col-sm">
+        Price
+      </div>
+    </div>
+
+    {% if user.is_authenticated %}
+
+    {% for i in products %}
+    <div class="row mt-5" style="font-family: 'Bree Serif'">
+      <div class="col-sm">
+        {{i.product.name}}
+      </div>
+      <div class="col-sm">
+        <div style="width:100px; height:100px; margin-top:-25px">
+          <img src='{{ i.product.image.url }}' class="card-img-top" style="display:block ;width:100%; height:100%;">
+        </div>
+      </div>
+      <div class="col-sm">
+        <input type='number' oninput="this.value =!!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null" id="{{i.id}}" class='qty' value={{i.quantity}} min=1 style='width:50px'>
+        {% comment %} <div class='d-flex, ml-5, mr-5'>
+          <a type="button" data-id='{{i.id}}' class="text-secondary qty"><i style="font-size:20px" class="fa">&#xf068;</i></a>
+          <span style='font-size:150%;'>{{i.quantity}}<span>
+          <a type="button"  class="text-secondary qty"><i style="font-size:20px" class="fa">&#xf067;</i></a>
+        </div> {% endcomment %}
+      </div>
+      <div class="col-sm" id="remove">
+        <p><a type="button" href="{% url 'removing' %}?p={{i.id}}" class="text-danger ">Remove</a></p>
+      </div>
+      <div class="col-sm" id='price'>
+        {{i.product.price}}
+      </div>
+      <div class="col-sm total"  data-price="{{i.price}}" id='total'>
+        {{i.total}}
+      </div>
+    </div>
+    {% endfor %}
+
+    <div style='display:flex; margin-left:73%;'>
+      <h4 class='mr-3'>Grand Total </h4> <h4 id='grand'>{{products.first.order.amount}}
+      </h4>      
+    </div>
+
+    <div style='display:flex; margin-left:73%;'>
+      <a type='button' href="{% url 'checkout' %}" class="btn-outline-info mt-1">Check Out.</a>
+    </div>
+
+
+
+  </div>
+  <script>
+
+  //grand()
+  
+  //Adding and finding price
+
+  //('.qty').on("change", function(){
+  // var qty = $(this).val()
+  // var un_pr = $(this).parent().siblings("#price").text()
+  // //console.log(un_pr)
+  // var price = (qty * un_pr)
+  // //console.log(price)
+  // $(this).parent().siblings('#total').html(price)
+  // grand()
+  //) 
+
+  //Item removing
+
+  // $('#remove').on('click', function(){
+  //   $(this).parent().remove()
+  // })
+
+  // Grand total
+
+  //function grand(){
+  //elements = $(".total")
+  //total = 0
+  //$.each(elements, function() { 
+     
+    //console.log($(this).text());
+    //total +=  parseFloat($(this).text()) 
+
+  //});
+
+  //console.log(total)
+  //$('#grand').html(total)
+  //}
+
+
+  $(".qty").on('change', function (e) {
+     //console.log((this).attr('id'))
+     var current = $(this)
+     var qty = $(this).val()
+     var id = $(this).attr('id')
+     //console.log(id)
+      $.ajax({
+        type: 'GET',
+        url: "itemadd",
+        data:{
+              "p": id,
+              "q" : qty
+              },
+              dataType: 'json',
+              success: function (data) {
+                  //console.log(Object.values(data)[0])
+                  //console.log(Object.values(data)[1])
+                  //console.log(this)
+                  current.parent().siblings('#total').html(Object.values(data)[0])
+                  $('#grand').html(Object.values(data)[1])
+              }    
+      });
+    })
+
+  </script>
+
+    {% else %}
+
+      <div class="alert alert-warning alert-dismissible show mt-5" role="alert">
+        <h4><strong class='mr-4'>Oops...!</strong>You must log in first, and continue shoping.</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+{% endif %}
+
+{% endblock content %}

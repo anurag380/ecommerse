@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}forgot{% endblock title %}
+{% block content %}
+
+
+<div class="container" style="font-family: 'Bree Serif'">
+    <div class="row mt-4" style='color:red; font-size:120%'>
+      <div class="col-sm">
+        Order No.
+      </div>
+      <div class="col-sm">
+        Customer Name
+      </div>
+      <div class="col-sm">
+        Total Amount
+      </div>
+      <div class="col-sm">
+        Status
+      </div>
+      <div class="col-sm">
+        Details
+      </div>
+    </div>
+
+    {% if user.is_authenticated %}
+
+    {% for i in form %}
+    <div class="row mt-5" style="font-family: 'Bree Serif'">
+      <div class="col-sm">
+          {{i.id}}
+      </div>      
+      <div class="col-sm">
+        {{i.customer}}
+      </div>
+      <div class="col-sm">
+        {{i.amount}}
+      </div>
+      <div class="col-sm total" id='total'>
+        {{i.status}}
+      </div>
+      <div class="col-sm total" id='total'>
+          <a type='button' href="{% url 'showorder' id=i.id %}" class="btn-outline-info mt-1">Show More</a>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+
+    {% else %}
+
+      <div class="alert alert-warning alert-dismissible show mt-5" role="alert">
+        <h4><strong class='mr-4'>Oops...!</strong>You must log in first, and continue shoping.</h4>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+{% endif %}
+
+
+
+
+{% endblock content %}

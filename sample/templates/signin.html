@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}signin{% endblock title %}
+{% block content %}
+
+<div class="d-flex mt-5" style="justify-content:center; font-family:'Bree Serif', serif;">
+    <div style="padding:30px;">
+    
+        <h2 class="mt-4 mb-3" style="font-size:25px; text-align:center;">SIGN IN TO YOUR ACCOUNT</h2>
+       
+        <div class="px" style="font-size:18px; color:red; text-align:center;">
+            <p id="text"></p>
+        </div> 
+    
+    <form action="" method="POST" style="font-size:18px; text-align:center;">
+        {% csrf_token %}
+        <div>{% for message in messages %}
+            <p style="color:red;">{{message}}</p>
+            {% endfor %}
+        </div>
+        
+        <div class='mb-3 p-1' style="">
+            <input type="text" id="name" placeholder="User Name" name='name' >
+        </div>
+        <div class='mb-3 p-1' style="">
+            <input type="password" id="pass1" placeholder="Password" name='password' >
+        </div>
+        <div>
+            <button type="submit" class="btn btn-outline-success" id="sign">SUBMIT</button>
+        </div>
+        {% comment %} <div class='mt-3'>
+            <a href="{% url 'forgot' %}" class="btn btn-outline-danger">Forgot Password ?</a>
+        </div> {% endcomment %}
+        <div class='d-flex container justify-content-center mt-3' >
+            <p >Dont't have an account ? Please</p>
+            <a href="{% url 'signup' %}" type="text" class="text-primary ml-1">SIGN UP.</a>
+        </div>
+    
+    </form>
+    </div>
+    </div>
+
+
+{% endblock content %}

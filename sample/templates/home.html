@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}home{% endblock title %}
+{% block content %}
+
+ 
+{% comment %} <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-interval="1500">
+      <img src="https://i.pinimg.com/736x/ec/da/c3/ecdac3a87cb45215c26a5b77e40d649f--banners.jpg" height=350px
+        width=1450px>
+    </div>
+    <div class="carousel-item" data-interval="1500">
+      <img src="https://www.shutterstock.com/image-photo/mobile-screen-multimedia-devices-form-260nw-2249035599.jpg"
+        height=350px width=1450px>
+    </div>
+    <div class="carousel-item" data-interval="1500">
+      <img
+        src="https://fiverr-res.cloudinary.com/t_mobile_web_2,q_auto,f_auto/gigs/247605513/original/4a5a3495cb7e3c65c5259ae985b7b84cddf8c2e4.jpg"
+        height=350px width=1450px>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-target="#carouselExampleInterval" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-target="#carouselExampleInterval" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </button>
+</div> {% endcomment %}
+
+<div>{% for message in messages %}
+  <p style="color:blue; font-size:150%;text-align:center; font-family: 'Bree Serif', serif;">{{message}}</p>
+  {% endfor %}
+</div>
+
+
+<div class='d-flex mt-5 row justify-content-center' style="font-family: 'Bree Serif', serif;" id="demo">
+  {% include 'products.html' %}
+</div>
+
+
+
+{% endblock content %}
